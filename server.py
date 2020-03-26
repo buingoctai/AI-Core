@@ -1,4 +1,4 @@
-from flask import Flask, jsonify,request
+from flask import Flask, jsonify, request
 import os
 import json
 from evaluate import writeInputedUser
@@ -13,8 +13,8 @@ def hello_world():
 @app.route('/userData_classification', methods=['POST'])
 def userData_classification():
 
-    data=request.get_json()
-    writeInputedUser(data['userName'])
+    data = request.get_json()
+    writeInputedUser(data['userData'])
     with open('predictiveMessage.json', 'r') as f:
         res = json.load(f)
         response = res
