@@ -12,12 +12,14 @@ def hello_world():
 
 @app.route('/userData_classification', methods=['POST'])
 def userData_classification():
-
     data = request.get_json()
-    writeInputedUser(data['userData'])
-    with open('predictiveMessage.json', 'r') as f:
-        res = json.load(f)
-        response = res
+    response={}
+    i=0
+    for item in data["list"]:
+        writeInputedUser(item["data"],item["fileName"])
+        with open(item["fileName"]+'.json', 'r') as f:
+            response['response_'+str(i)] = json.load(f)
+            i=i+1
     return response
 
 

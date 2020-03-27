@@ -2,9 +2,8 @@ import os
 import sys
 
 
-def writeInputedUser(argvList):
-    print('argvList=', argvList)
-    input_user = argvList[0]
+def writeInputedUser(data,fileName):
+    input_user = data
 
     if not (os.path.isdir('data_evaluate_cnn')):
         os.mkdir('data_evaluate_cnn')
@@ -29,4 +28,4 @@ def writeInputedUser(argvList):
     f.close()
 
     os.system(
-        'python to_eval.py --eval_train --checkpoint_dir="./run_cnn/model/checkpoints/')
+        'python to_eval.py --eval_train --checkpoint_dir="./run_cnn/model/checkpoints/" --outputFileName='+fileName)
