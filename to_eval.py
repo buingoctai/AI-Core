@@ -13,19 +13,21 @@ import datetime
 import sys
 
 sys.path.insert(0, '/model_cnn')
+print("sys=", sys.argv[3][17:])
+fileName = sys.argv[3][17:]
 # Parameters
 # ==================================================
 
 # Data Parameters
-tf.flags.DEFINE_string("find_data_file", "./data_evaluate_cnn/Data.findRestaurantsByCity",
+tf.flags.DEFINE_string("find_data_file", "./data_evaluate_cnn/Data{}.findRestaurantsByCity".format(fileName),
                        "Data source for the findRestaurantsByCity data.")
 tf.flags.DEFINE_string(
-    "greet_data_file", "./data_evaluate_cnn/Data.greet", "Data source for the greet data.")
+    "greet_data_file", "./data_evaluate_cnn/Data{}.greet".format(fileName), "Data source for the greet data.")
 tf.flags.DEFINE_string(
-    "bye_data_file", "./data_evaluate_cnn/Data.bye", "Data source for the bye data.")
-tf.flags.DEFINE_string("affirmative_data_file", "./data_evaluate_cnn/Data.affirmative",
+    "bye_data_file", "./data_evaluate_cnn/Data{}.bye".format(fileName), "Data source for the bye data.")
+tf.flags.DEFINE_string("affirmative_data_file", "./data_evaluate_cnn/Data{}.affirmative".format(fileName),
                        "Data source for the affirmative data.")
-tf.flags.DEFINE_string("negative_data_file", "./data_evaluate_cnn/Data.negative",
+tf.flags.DEFINE_string("negative_data_file", "./data_evaluate_cnn/Data{}.negative".format(fileName),
                        "Data source for the negative data.")
 
 # Eval Parameters
@@ -43,8 +45,6 @@ tf.flags.DEFINE_boolean("log_device_placement", False,
 
 
 FLAGS = tf.flags.FLAGS
-# FLAGS._parse_flags()
-print('sys.argv=', sys.argv)
 FLAGS(sys.argv)
 print("\nParameters:")
 for attr, value in sorted(FLAGS.__flags.items()):
@@ -145,7 +145,8 @@ Message = {"intent": {}, "intent_ranking": [], "text": ""}
 Message['intent'] = intent
 Message['intent_ranking'] = intent_ranking
 
-f = open('data_evaluate_cnn/Data.findRestaurantsByCity', 'r')
+f = open(
+    'data_evaluate_cnn/Data{}.findRestaurantsByCity'.format(fileName), 'r')
 Message['text'] = f.read()
 f.close()
 # Write object json to predictiveMessage file
